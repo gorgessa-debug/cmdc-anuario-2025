@@ -424,7 +424,12 @@
   .seg-bar {
     height: 100%; background: linear-gradient(to right, var(--gold), var(--gold2));
     border-radius: 2px;
-    transition: width 1.5s cubic-bezier(.19,1,.22,1);
+    animation: growBar 1.8s cubic-bezier(.19,1,.22,1) forwards;
+    animation-delay: 0.3s;
+  }
+  @keyframes growBar {
+    from { transform: scaleX(0); transform-origin: left; }
+    to   { transform: scaleX(1); transform-origin: left; }
   }
   .seg-pct {
     font-family: 'Barlow Condensed', sans-serif;
@@ -682,42 +687,42 @@
   <div class="segments-grid">
     <div class="seg-card reveal">
       <div class="seg-rank">1º Lugar</div>
-      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="45%"></div></div>
+      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="45%" style="width:45%;transition:none"></div></div>
       <div class="seg-pct">45%</div>
       <div class="seg-name">Bancos e Financeiras</div>
       <div class="seg-infraction">Fila · RMC · Fraudes · Juros abusivos</div>
     </div>
     <div class="seg-card reveal reveal-delay-1">
       <div class="seg-rank">2º Lugar</div>
-      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="25%"></div></div>
+      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="25%" style="width:25%;transition:none"></div></div>
       <div class="seg-pct">25%</div>
       <div class="seg-name">Varejo e E-commerce</div>
       <div class="seg-infraction">Não entrega · Vícios · Descumprimento de oferta</div>
     </div>
     <div class="seg-card reveal reveal-delay-2">
       <div class="seg-rank">3º Lugar</div>
-      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="11%"></div></div>
+      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="11%" style="width:11%;transition:none"></div></div>
       <div class="seg-pct">11%</div>
       <div class="seg-name">Telecomunicações</div>
       <div class="seg-infraction">Cobranças indevidas · Pós-cancelamento</div>
     </div>
     <div class="seg-card reveal">
       <div class="seg-rank">4º Lugar</div>
-      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="9%"></div></div>
+      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="9%"  style="width:9%;transition:none"></div></div>
       <div class="seg-pct">9%</div>
       <div class="seg-name">Turismo e Transporte</div>
       <div class="seg-infraction">Multas abusivas · Cancelamentos na pandemia</div>
     </div>
     <div class="seg-card reveal reveal-delay-1">
       <div class="seg-rank">5º Lugar</div>
-      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="7%"></div></div>
+      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="7%"  style="width:7%;transition:none"></div></div>
       <div class="seg-pct">7%</div>
       <div class="seg-name">Serviços e Saúde</div>
       <div class="seg-infraction">Venda casada · Reajuste abusivo</div>
     </div>
     <div class="seg-card reveal reveal-delay-2">
       <div class="seg-rank">6º Lugar</div>
-      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="3%"></div></div>
+      <div class="seg-bar-wrap"><div class="seg-bar" style="width:0%" data-width="3%"  style="width:3%;transition:none"></div></div>
       <div class="seg-pct">3%</div>
       <div class="seg-name">Alimentação</div>
       <div class="seg-infraction">Produtos vencidos · Validade irregular</div>
