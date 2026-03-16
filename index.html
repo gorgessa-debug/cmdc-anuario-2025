@@ -187,109 +187,187 @@
     animation: fadeUp 1s 0.2s ease both;
   }
 
+  /* ── MODERN BOOK 3D ── */
   .book-wrap {
     position: relative;
-    transform: perspective(1000px) rotateY(-8deg) rotateX(2deg);
-    transition: transform 0.5s ease;
-    filter: drop-shadow(-30px 30px 60px rgba(0,0,0,0.6));
+    filter: drop-shadow(-40px 40px 80px rgba(0,0,0,0.7));
+    animation: bookFloat 4s ease-in-out infinite;
+  }
+  @keyframes bookFloat {
+    0%, 100% { transform: perspective(1200px) rotateY(-12deg) rotateX(3deg) translateY(0); }
+    50%       { transform: perspective(1200px) rotateY(-8deg)  rotateX(2deg) translateY(-12px); }
   }
   .book-wrap:hover {
-    transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
+    animation: none;
+    transform: perspective(1200px) rotateY(-3deg) rotateX(1deg);
+    transition: transform 0.5s ease;
   }
 
-  .book-cover {
-    width: 320px;
-    background: linear-gradient(160deg, #0d2545 0%, #071525 100%);
-    border: 1px solid rgba(184,149,58,0.4);
-    padding: 36px 32px;
+  /* Book 3D shell */
+  .book-3d {
     position: relative;
-    overflow: hidden;
+    width: 300px;
+    height: 420px;
   }
+
+  /* Spine (left side) */
+  .book-spine {
+    position: absolute;
+    left: -22px; top: 4px;
+    width: 22px; height: 420px;
+    background: linear-gradient(to right, #040d18, #0a1e35, #0d2545);
+    transform: rotateY(90deg);
+    transform-origin: right center;
+    border-left: 1px solid rgba(184,149,58,0.15);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 6px;
+  }
+  .book-spine-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 8px; letter-spacing: 2px;
+    color: rgba(184,149,58,0.5);
+    text-transform: uppercase;
+  }
+
+  /* Cover face */
+  .book-cover {
+    width: 300px; height: 420px;
+    position: relative; overflow: hidden;
+    background: #060f1e;
+    border: 1px solid rgba(184,149,58,0.25);
+  }
+
+  /* Diagonal gold accent stripe */
   .book-cover::before {
     content: '';
-    position: absolute; top: 0; right: 0; bottom: 0;
-    width: 8px;
-    background: linear-gradient(to right, rgba(184,149,58,0.4), rgba(184,149,58,0.1));
+    position: absolute;
+    top: -60px; right: -40px;
+    width: 180px; height: 320px;
+    background: linear-gradient(135deg,
+      transparent 0%,
+      rgba(184,149,58,0.06) 40%,
+      rgba(184,149,58,0.12) 50%,
+      rgba(184,149,58,0.06) 60%,
+      transparent 100%);
+    transform: skewX(-15deg);
   }
+
+  /* Bottom color band */
   .book-cover::after {
     content: '';
     position: absolute;
-    top: -40%; right: -30%;
-    width: 80%; height: 80%;
-    background: radial-gradient(ellipse, rgba(184,149,58,0.08) 0%, transparent 70%);
+    bottom: 0; left: 0; right: 0;
+    height: 110px;
+    background: linear-gradient(to top,
+      rgba(184,149,58,0.18) 0%,
+      transparent 100%);
   }
 
-  .book-logo-area {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 32px;
-    padding-bottom: 20px;
+  .book-inner {
+    position: relative; z-index: 2;
+    height: 100%;
+    display: flex; flex-direction: column;
+    padding: 28px 26px 24px;
+  }
+
+  /* Top header bar */
+  .book-header-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 16px;
     border-bottom: 1px solid rgba(184,149,58,0.2);
+    margin-bottom: 20px;
   }
-  .book-logo-icon {
-    width: 32px; height: 32px;
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; color: var(--gold); font-weight: 700;
-    font-family: 'Cormorant Garamond', serif;
-    flex-shrink: 0;
-  }
-  .book-logo-text {
+  .book-institution {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 9px; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--gray);
-    line-height: 1.4;
+    font-size: 7.5px; letter-spacing: 2px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase; line-height: 1.5;
   }
-
-  .book-tag {
+  .book-badge {
+    background: rgba(184,149,58,0.15);
+    border: 1px solid rgba(184,149,58,0.3);
+    padding: 3px 8px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 9px; letter-spacing: 3px;
+    font-size: 7px; letter-spacing: 2px;
     color: var(--gold); text-transform: uppercase;
-    margin-bottom: 8px; opacity: 0.8;
+    white-space: nowrap;
   }
 
-  .book-main-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; font-weight: 700;
-    line-height: 1.1; color: var(--white);
-    margin-bottom: 6px;
-  }
-
-  .book-subtitle {
+  /* Big year */
+  .book-year-bg {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 22px; color: var(--gold2);
-    font-weight: 600; letter-spacing: 1px;
-    margin-bottom: 32px;
+    font-size: 110px; font-weight: 700; line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(184,149,58,0.12);
+    letter-spacing: -4px;
+    position: absolute;
+    top: 54px; left: 16px;
+    user-select: none;
   }
 
-  .book-divider {
-    height: 2px; width: 60px;
-    background: linear-gradient(to right, var(--gold), transparent);
-    margin-bottom: 28px;
+  /* Main title area */
+  .book-title-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .book-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px; letter-spacing: 3.5px;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 10px; font-weight: 600;
   }
-
-  .book-stat-row {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 16px; margin-bottom: 28px;
-  }
-  .book-stat { text-align: center; }
-  .book-stat-num {
+  .book-title-main {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; font-weight: 700;
-    color: var(--gold2); line-height: 1;
+    font-size: 32px; font-weight: 700;
+    line-height: 1.05; color: var(--white);
+    margin-bottom: 4px;
   }
-  .book-stat-label {
+  .book-title-em {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 400;
+    font-style: italic; color: var(--gold2);
+    line-height: 1;
+  }
+
+  /* Gold rule */
+  .book-rule {
+    height: 1px; width: 100%;
+    background: linear-gradient(to right, var(--gold), rgba(184,149,58,0.1));
+    margin: 18px 0;
+  }
+
+  /* Bottom stats strip */
+  .book-stats-strip {
+    display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    align-items: center; gap: 0;
+  }
+  .book-sstat { text-align: center; padding: 0 4px; }
+  .book-sstat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--gold2); line-height: 1; display: block;
+  }
+  .book-sstat-lbl {
     font-family: 'Barlow', sans-serif;
-    font-size: 9px; letter-spacing: 1.5px;
-    color: var(--gray); text-transform: uppercase;
-    margin-top: 2px;
+    font-size: 7px; letter-spacing: 1px;
+    color: rgba(255,255,255,0.3); text-transform: uppercase;
+    margin-top: 1px;
+  }
+  .book-vdiv {
+    width: 1px; height: 28px;
+    background: rgba(184,149,58,0.2);
   }
 
-  .book-footer-text {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 9px; letter-spacing: 1px;
-    color: rgba(255,255,255,0.3); text-align: center;
-    text-transform: uppercase;
+  /* Page edges simulation */
+  .book-pages {
+    position: absolute;
+    right: -6px; top: 3px;
+    width: 6px; height: 420px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #e8e0d0 0px, #e8e0d0 1px,
+      #d4c9b5 1px, #d4c9b5 2px
+    );
+    opacity: 0.6;
   }
 
   /* ── STATS BAR ── */
@@ -597,28 +675,51 @@
 
   <div class="hero-right">
     <div class="book-wrap">
-      <div class="book-cover">
-        <div class="book-logo-area">
-          <div class="book-logo-icon">C</div>
-          <div class="book-logo-text">
-            CMDC — Conselho Municipal<br>de Defesa do Consumidor
+      <div class="book-3d">
+        <!-- Spine -->
+        <div class="book-spine">
+          <span class="book-spine-text">CMDC · Itajaí · 2025</span>
+        </div>
+        <!-- Page edges -->
+        <div class="book-pages"></div>
+        <!-- Front cover -->
+        <div class="book-cover">
+          <!-- Large ghost year -->
+          <div class="book-year-bg">25</div>
+          <div class="book-inner">
+            <!-- Header -->
+            <div class="book-header-bar">
+              <div class="book-institution">Município de Itajaí<br>Sistema Mun. Defesa do Consumidor</div>
+              <div class="book-badge">2025</div>
+            </div>
+            <!-- Title -->
+            <div class="book-title-area">
+              <div class="book-eyebrow">Anuário de Julgados</div>
+              <div class="book-title-main">Transparência,<br>Dados e</div>
+              <div class="book-title-em">Justiça</div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:6px;">ao Consumidor</div>
+            </div>
+            <!-- Rule -->
+            <div class="book-rule"></div>
+            <!-- Stats strip -->
+            <div class="book-stats-strip">
+              <div class="book-sstat">
+                <span class="book-sstat-num">93</span>
+                <div class="book-sstat-lbl">Processos</div>
+              </div>
+              <div class="book-vdiv"></div>
+              <div class="book-sstat">
+                <span class="book-sstat-num">80.6%</span>
+                <div class="book-sstat-lbl">Multas Mantidas</div>
+              </div>
+              <div class="book-vdiv"></div>
+              <div class="book-sstat">
+                <span class="book-sstat-num">623</span>
+                <div class="book-sstat-lbl">Páginas</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="book-tag">Anuário de Julgados</div>
-        <div class="book-main-title">Transparência,<br>Dados e Justiça</div>
-        <div class="book-subtitle">ao Consumidor</div>
-        <div class="book-divider"></div>
-        <div class="book-stat-row">
-          <div class="book-stat">
-            <span class="book-stat-num">93</span>
-            <div class="book-stat-label">Processos</div>
-          </div>
-          <div class="book-stat">
-            <span class="book-stat-num">80.6%</span>
-            <div class="book-stat-label">Multas Mantidas</div>
-          </div>
-        </div>
-        <div class="book-footer-text">Município de Itajaí · Exercício 2025</div>
       </div>
     </div>
   </div>
@@ -765,7 +866,7 @@
   </div>
   <div class="footer-links">
     <a href="https://drive.google.com/drive/folders/1kDVS68jUsR2tGvG350RvGd7ej9eGRRj5?usp=sharing" target="_blank">Baixar PDF</a>
-    <a href="/cdn-cgi/l/email-protection#aac9c7cec9eac3decbc0cbc384d9c984cdc5dc84c8d8"><span class="__cf_email__" data-cfemail="a7c4cac3c4e7ced3c6cdc6ce89d4c489c0c8d189c5d5">[email&#160;protected]</span></a>
+    <a href="/cdn-cgi/l/email-protection#74171910175a1d00151e151d341319151d185a171b19"><span class="__cf_email__" data-cfemail="ef8c828b8cc1869b8e858e86af88828e8683c18c8082">[email&#160;protected]</span></a>
     <a href="https://www.itajai.sc.gov.br" target="_blank">itajai.sc.gov.br</a>
   </div>
   <div class="footer-legal">
@@ -775,7 +876,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Scroll reveal ──────────────────────────────────────────────────────────
   // Add hidden class first, then animate in on scroll
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('hidden'));
@@ -839,13 +940,4 @@
   const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      const nums = e.target.querySelectorAll('.stat-num');
-      const data = [
-        [93, '', 0],
-        [80.6, '%', 1],
-        [42, '%', 0],
-        [623, '', 0],
-        [119, 'k', 0],
-      ];
-      nums.forEach((el, i) => {
-        if (data[i]) animateCount(el, data[i][
+      const nums = e.target.quer
