@@ -529,7 +529,8 @@
   }
 
   /* Scroll reveal */
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.hidden { opacity: 0; transform: translateY(20px); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
@@ -771,15 +772,27 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Scroll reveal ──────────────────────────────────────────────────────────
+  // Add hidden class first, then animate in on scroll
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('hidden'));
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
+        e.target.classList.remove('hidden');
         e.target.classList.add('visible');
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Fallback: if after 3s any reveal is still hidden, show it
+  setTimeout(() => {
+    document.querySelectorAll('.reveal.hidden').forEach(el => {
+      el.classList.remove('hidden');
+      el.classList.add('visible');
+    });
+  }, 3000);
 
   // ── Animated bars ──────────────────────────────────────────────────────────
   const barObserver = new IntersectionObserver((entries) => {
@@ -792,8 +805,17 @@
         barObserver.unobserve(e.target);
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
   document.querySelectorAll('.segments-grid').forEach(el => barObserver.observe(el));
+
+  // Fallback: animate bars after 2.5s if observer didn't fire
+  setTimeout(() => {
+    document.querySelectorAll('.seg-bar[data-width]').forEach(bar => {
+      if (bar.style.width === '0%' || bar.style.width === '') {
+        bar.style.width = bar.dataset.width;
+      }
+    });
+  }, 2500);
 
   // ── Animated stats ─────────────────────────────────────────────────────────
   function animateCount(el, target, suffix='', decimals=0, duration=1500) {
